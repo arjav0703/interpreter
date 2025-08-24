@@ -1,11 +1,10 @@
 use std::env;
 use std::fs;
-use std::io::{self, Write};
 
 fn main() {
     let args: Vec<String> = env::args().collect();
     if args.len() < 3 {
-        writeln!(io::stderr(), "Usage: {} tokenize <filename>", args[0]).unwrap();
+        eprintln!("Usage: {} tokenize <filename>", args[0]);
         return;
     }
 
@@ -20,7 +19,7 @@ fn main() {
             });
 
             if !file_contents.is_empty() {
-                panic!("Scanner not implemented");
+                detect_parentheses(&file_contents);
             } else {
                 println!("EOF  null");
             }
@@ -29,4 +28,17 @@ fn main() {
             eprintln!("Unknown command: {}", command);
         }
     }
+}
+
+fn detect_parentheses(input: &str) {
+    let input_ver: Vec<char> = input.chars().collect();
+    for i in &input_ver {
+        match i {
+            '(' => println!("LEFT_PAREN ( null"),
+            ')' => println!("RIGHT_PAREN ) null"),
+            _ => (),
+        }
+    }
+    print!("EOF  null");
+    // print!("{:?}", input_ver)
 }
