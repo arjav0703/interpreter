@@ -52,6 +52,7 @@ enum LexemeType {
     PLUS,
     SEMICOLON,
     SLASH,
+    MINUS,
 }
 
 impl LexemeType {
@@ -68,6 +69,7 @@ impl LexemeType {
             LexemeType::PLUS => "PLUS + null",
             LexemeType::SEMICOLON => "SEMICOLON ; null",
             LexemeType::SLASH => "SLASH / null",
+            LexemeType::MINUS => "MINUS - null",
         }
     }
 
@@ -82,6 +84,7 @@ impl LexemeType {
             ',' => Some(LexemeType::COMMA),
             '+' => Some(LexemeType::PLUS),
             ';' => Some(LexemeType::SEMICOLON),
+            '-' => Some(LexemeType::MINUS),
             '/' => Some(LexemeType::SLASH),
             _ => None,
         }
