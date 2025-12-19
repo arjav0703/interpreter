@@ -65,7 +65,7 @@ impl LexemeType {
             LexemeType::EOF => "EOF  null",
             LexemeType::DOT => "DOT . null",
             LexemeType::COMMA => "COMMA , null",
-            LexemeType::PLUS => "PLUS + NULL",
+            LexemeType::PLUS => "PLUS + null",
             LexemeType::SEMICOLON => "SEMICOLON ; null",
             LexemeType::SLASH => "SLASH / null",
         }
