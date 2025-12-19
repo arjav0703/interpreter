@@ -33,14 +33,61 @@ fn main() {
 fn detect_parentheses(input: &str) {
     let input_ver: Vec<char> = input.chars().collect();
     for i in &input_ver {
-        match i {
-            '(' => println!("LEFT_PAREN ( null"),
-            ')' => println!("RIGHT_PAREN ) null"),
-            '{' => println!("LEFT_BRACE {{ null"),
-            '}' => println!("RIGHT_BRACE }} null"),
-            _ => (),
+        if let Some(lexeme) = LexemeType::from_char(*i) {
+            lexeme.print();
         }
     }
     print!("EOF  null");
-    // print!("{:?}", input_ver)
+}
+
+enum LexemeType {
+    LEFT_PAREN,
+    RIGHT_PAREN,
+    LEFT_BRACE,
+    RIGHT_BRACE,
+    STAR,
+    EOF,
+    DOT,
+    COMMA,
+    PLUS,
+    SEMICOLON,
+    SLASH,
+}
+
+impl LexemeType {
+    fn to_string(&self) -> &str {
+        match self {
+            LexemeType::LEFT_PAREN => "LEFT_PAREN ( null",
+            LexemeType::RIGHT_PAREN => "RIGHT_PAREN ) null",
+            LexemeType::LEFT_BRACE => "LEFT_BRACE { null",
+            LexemeType::RIGHT_BRACE => "RIGHT_BRACE } null",
+            LexemeType::STAR => "STAR * null",
+            LexemeType::EOF => "EOF  null",
+            LexemeType::DOT => "DOT . null",
+            LexemeType::COMMA => "COMMA , null",
+            LexemeType::PLUS => "PLUS + NULL",
+            LexemeType::SEMICOLON => "SEMICOLON ; null",
+            LexemeType::SLASH => "SLASH / null",
+        }
+    }
+
+    fn from_char(c: char) -> Option<LexemeType> {
+        match c {
+            '(' => Some(LexemeType::LEFT_PAREN),
+            ')' => Some(LexemeType::RIGHT_PAREN),
+            '{' => Some(LexemeType::LEFT_BRACE),
+            '}' => Some(LexemeType::RIGHT_BRACE),
+            '*' => Some(LexemeType::STAR),
+            '.' => Some(LexemeType::DOT),
+            ',' => Some(LexemeType::COMMA),
+            '+' => Some(LexemeType::PLUS),
+            ';' => Some(LexemeType::SEMICOLON),
+            '/' => Some(LexemeType::SLASH),
+            _ => None,
+        }
+    }
+
+    fn print(&self) {
+        println!("{}", self.to_string());
+    }
 }
