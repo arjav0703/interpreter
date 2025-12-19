@@ -1,5 +1,6 @@
 use std::env;
 use std::fs;
+use std::process::exit;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -19,7 +20,8 @@ fn main() {
             });
 
             if !file_contents.is_empty() {
-                detect_parentheses(&file_contents);
+                let exitcode = detect_parentheses(&file_contents);
+                exit(exitcode);
             } else {
                 println!("EOF  null");
             }
@@ -30,14 +32,22 @@ fn main() {
     }
 }
 
-fn detect_parentheses(input: &str) {
+fn detect_parentheses(input: &str) -> i32 {
+    let mut exit_code = 0;
     let input_ver: Vec<char> = input.chars().collect();
+    let mut line_number = 1;
     for i in &input_ver {
-        if let Some(lexeme) = LexemeType::from_char(*i) {
+        if *i == '\n' {
+            line_number += 1;
+        } else if let Some(lexeme) = LexemeType::from_char(*i) {
             lexeme.print();
+        } else {
+            eprintln!("[line {line_number}] Error: Unexpected character: {i}");
+            exit_code = 65;
         }
     }
     print!("EOF  null");
+    exit_code
 }
 
 enum LexemeType {
